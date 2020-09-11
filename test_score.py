@@ -61,7 +61,7 @@ class Test(TestCase):
         # Then
         self.assertEqual(expected_score, score)
 
-    def test_get_score_when_player_2_score_and_score_is_0_15(self):
+    def test_get_score_when_player_2_score_then_score_is_0_15(self):
         # Given
         expected_score: Score = Scores.score_0_30
         scoring_player: int = Players.player_2
@@ -73,7 +73,19 @@ class Test(TestCase):
         # Then
         self.assertEqual(expected_score, score)
 
-    def test_get_score_when_player_1_score_and_score_is_15_0(self):
+    def test_get_score_when_player_1_score_then_score_is_15_0(self):
+        # Given
+        expected_score: Score = Scores.score_30_0
+        scoring_player: int = Players.player_1
+        current_score: Score = Scores.score_15_0
+
+        # When
+        score: Score = get_score(current_score, scoring_player)
+
+        # Then
+        self.assertEqual(expected_score, score)
+
+    def test_get_score_when_player_1_score_then_score_is_updated(self):
         # Given
         expected_score: Score = Scores.score_30_0
         scoring_player: int = Players.player_1

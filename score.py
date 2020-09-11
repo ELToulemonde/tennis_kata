@@ -12,39 +12,64 @@ Score = NewType("Score", tuple)
 
 
 @dataclass
+class SingleScores:
+    zero: int = 0
+    quinze: int = 15
+    trente: int = 30
+    quarante: int = 40
+
+
+@dataclass
 class Scores:
-    score_0_0: Score = (0, 0)
-    score_15_0: Score = (15, 0)
-    score_0_15: Score = (0, 15)
-    score_15_15: Score = (15, 15)
-    score_0_30: Score = (0, 30)
-    score_30_0: Score = (30, 0)
-    score_15_30: Score = (15, 30)
-    score_30_15: Score = (30, 15)
-    score_30_30: Score = (30, 30)
-    score_40_30: Score = (40, 30)
-    score_30_40: Score = (30, 40)
-    score_40_40: Score = (40, 40)
-    score_40_0: Score = (40, 0)
-    score_0_40: Score = (0, 40)
-    score_15_40: Score = (15, 40)
-    score_40_15: Score = (40, 15)
-    score_40_30: Score = (40, 30)
-    score_30_40: Score = (30, 40)
-    score_40_40: Score = (40, 40)
+    score_0_0: Score = (SingleScores.zero, SingleScores.zero)
+    score_15_0: Score = (SingleScores.quinze, SingleScores.zero)
+    score_0_15: Score = (SingleScores.zero, SingleScores.quinze)
+    score_15_15: Score = (SingleScores.quinze, SingleScores.quinze)
+    score_0_30: Score = (SingleScores.zero, SingleScores.trente)
+    score_30_0: Score = (SingleScores.trente, SingleScores.zero)
+    score_15_30: Score = (SingleScores.quinze, SingleScores.trente)
+    score_30_15: Score = (SingleScores.trente, SingleScores.quinze)
+    score_30_30: Score = (SingleScores.trente, SingleScores.trente)
+    score_40_30: Score = (SingleScores.quarante, SingleScores.trente)
+    score_30_40: Score = (SingleScores.trente, SingleScores.quarante)
+    score_40_40: Score = (SingleScores.quarante, SingleScores.quarante)
+    score_40_0: Score = (SingleScores.quarante, SingleScores.zero)
+    score_0_40: Score = (SingleScores.zero, SingleScores.quarante)
+    score_15_40: Score = (SingleScores.quinze, SingleScores.quarante)
+    score_40_15: Score = (SingleScores.quarante, SingleScores.quinze)
+
+NEXT_SCORE = {
+    SingleScores.zero: SingleScores.quinze,
+    SingleScores.quinze: SingleScores.trente,
+    SingleScores.trente: SingleScores.quarante,
+}
 
 
 PLAYER_1_NEXT_SCORE = {Scores.score_0_0: Scores.score_15_0,
                        Scores.score_0_15: Scores.score_15_15,
-                       Scores.score_15_0 : Scores.score_30_0,
-                       Scores.score_15_15 : Scores.score_30_15,
-                       Scores.score_15_30 : Scores.score_30_30,
-                       Scores.score_0_40 : Scores.score_15_40,
-                       Scores.score_15_40 : Scores.score_30_40,
-                       Scores.score_30_40 : Scores.score_40_40}
+                       Scores.score_15_0: Scores.score_30_0,
+                       Scores.score_15_15: Scores.score_30_15,
+                       Scores.score_15_30: Scores.score_30_30,
+                       Scores.score_0_40: Scores.score_15_40,
+                       Scores.score_15_40: Scores.score_30_40,
+                       Scores.score_30_40: Scores.score_40_40,
+                       Scores.score_30_30: Scores.score_40_30,
+                       Scores.score_30_15: Scores.score_40_15,
+                       Scores.score_30_0: Scores.score_40_0
+                       }
+
 PLAYER_2_NEXT_SCORE = {Scores.score_0_0: Scores.score_0_15,
                        Scores.score_15_0: Scores.score_15_15,
-                       Scores.score_0_15: Scores.score_0_30}
+                       Scores.score_0_15: Scores.score_0_30,
+                       Scores.score_15_15: Scores.score_15_30,
+                       Scores.score_15_30: Scores.score_15_40,
+                       Scores.score_30_15: Scores.score_30_30,
+                       Scores.score_30_30: Scores.score_30_40,
+                       Scores.score_40_0: Scores.score_40_15,
+                       Scores.score_40_15: Scores.score_40_30,
+                       Scores.score_40_30: Scores.score_40_40,
+                       Scores.score_0_30: Scores.score_0_40
+                       }
 
 
 def get_score(score: Score, scoring_player: int = None) -> Score:
