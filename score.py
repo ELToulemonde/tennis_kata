@@ -18,10 +18,12 @@ class Scores:
     score_0_15: Score = (0, 15)
     score_15_15: Score = (15, 15)
     score_0_30: Score = (0, 30)
+    score_30_0: Score = (30, 0)
 
 
 PLAYER_1_NEXT_SCORE = {Scores.score_0_0: Scores.score_15_0,
-                       Scores.score_0_15: Scores.score_15_15}
+                       Scores.score_0_15: Scores.score_15_15,
+                       Scores.score_15_0 : Scores.score_30_0}
 PLAYER_2_NEXT_SCORE = {Scores.score_0_0: Scores.score_0_15,
                        Scores.score_15_0: Scores.score_15_15,
                        Scores.score_0_15: Scores.score_0_30}
