@@ -17,7 +17,18 @@ class Test(TestCase):
     def test_get_score_when_player_1_score_once(self):
         # Given
         expected_score: tuple = (15, 0)
-        scoring_player = 0
+        scoring_player: int = 0
+
+        # When
+        score: tuple = get_score(scoring_player)
+
+        # Then
+        self.assertEqual(score, expected_score)
+
+    def test_get_score_when_player_2_score_once(self):
+        # Given
+        expected_score: tuple = (0, 15)
+        scoring_player: int = 1
 
         # When
         score: tuple = get_score(scoring_player)
