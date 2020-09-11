@@ -1,4 +1,5 @@
 from dataclasses import dataclass
+from typing import NewType
 
 
 @dataclass
@@ -7,21 +8,28 @@ class Players:
     player_2: int = 1
 
 
+Score = NewType("Score", tuple)
+
+
 @dataclass
 class Scores:
-    score_0_0: tuple = (0, 0)
-    score_15_0: tuple = (15, 0)
-    score_0_15: tuple = (0, 15)
-    score_15_15: tuple = (15, 15)
+    score_0_0: Score = (0, 0)
+    score_15_0: Score = (15, 0)
+    score_0_15: Score = (0, 15)
+    score_15_15: Score = (15, 15)
+    score_0_30: Score = (0, 30)
 
 
-def get_score(scoring_player: int = None, score: tuple = None) -> tuple:
+PLAYER_1_NEXT_SCORE = {Scores.score_0_0: Scores.score_15_0,
+                       Scores.score_0_15: Scores.score_15_15}
+PLAYER_2_NEXT_SCORE = {Scores.score_0_0: Scores.score_0_15,
+                       Scores.score_15_0: Scores.score_15_15,
+                       Scores.score_0_15: Scores.score_0_30}
+
+
+def get_score(score: Score, scoring_player: int = None) -> Score:
     if scoring_player == Players.player_1:
-        if score == Scores.score_0_15:
-            return Scores.score_15_15
-        return Scores.score_15_0
+        return PLAYER_1_NEXT_SCORE[score]
     elif scoring_player == Players.player_2:
-        if score == Scores.score_15_0:
-            return Scores.score_15_15
-        return Scores.score_0_15
+        return PLAYER_2_NEXT_SCORE[score]
     return Scores.score_0_0
